@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IRO - Issues Reporting Outlet</title>
+    <style>
+        * { box-sizing: border-box; font-family: Arial, sans-serif; margin: 0; padding: 0; }
+        body { background: #f4f6f9; padding: 20px; color: #333; }
+        .container { max-width: 800px; margin: 0 auto; background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #003366; margin-bottom: 5px; }
+        p.subtitle { text-align: center; color: #666; margin-bottom: 20px; font-size: 14px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 14px; }
+        input, select, textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+        button { width: 100%; background: #003366; color: white; border: none; padding: 12px; font-size: 16px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        button:hover { background: #002244; }
+        .feed { margin-top: 30px; border-top: 2px solid #eee; padding-top: 20px; }
+        .card { background: #fafafa; border-left: 4px solid #003366; padding: 15px; margin-bottom: 10px; border-radius: 4px; }
+        .card h4 { margin-bottom: 5px; color: #003366; }
+        .badge { display: inline-block; background: #e0e0e0; padding: 3px 8px; border-radius: 12px; font-size: 12px; font-weight: bold; margin-bottom: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>IRO (Issues Reporting Outlet)</h1>
+    <p class="subtitle">AAUA Community & Indigenes Issue Reporting Portal</p>
+
+    <form id="issueForm">
+        <div class="form-group">
+            <label for="reporter">Full Name (Optional for Anonymous Reporting)</label>
+            <input type="text" id="reporter" placeholder="Enter name or leave blank for Anonymous">
+        </div>
+
+        <div class="form-group">
+            <label for="category">Stakeholder Group *</label>
+            <select id="category" required>
+                <option value="">Select Category</option>
+                <option value="AAUA Student">AAUA Student</option>
+                <option value="Akungba Indigene">Akungba Indigene</option>
+                <option value="Iwaro Indigene">Iwaro Indigene</option>
+                <option value="Etioro Indigene">Etioro Indigene</option>
+                <option value="Ayegunle Indigene">Ayegunle Indigene</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="title">Issue Title *</label>
+            <input type="text" id="title" placeholder="Brief issue summary" required>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Detailed Description *</label>
+            <textarea id="description" rows="4" placeholder="Describe the issue..." required></textarea>
+        </div>
+
+        <button type="submit">Submit Issue Report</button>
+    </form>
+
+    <div class="feed">
+        <h2>Reported Issues Log</h2>
+        <div id="issueContainer"></div>
+    </div>
+</div>
+
+<script>
+    const form = document.getElementById('issueForm');
+    const container = document.getElementById('issueContainer');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const reporter = document.getElementById('reporter').value.trim() || 'Anonymous';
+        const category = document.getElementById('category').value;
+        const title = document.getElementById('title').value;
+        const description = document.getElementById('description').value;
+
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+            <span class="badge">${category}</span>
+            <h4>${title}</h4>
+            <p>${description}</p>
+            <small><strong>Reported by:</strong> ${reporter} | <strong>Status:</strong> Pending Review</small>
+        `;
+
+        container.prepend(card);
+        form.reset();
+    });
+</script>
+
+</body>
+</html>
+h
